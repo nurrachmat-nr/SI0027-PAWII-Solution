@@ -1,0 +1,101 @@
+{
+  "info": {
+    "name": "PAWII - Mahasiswa API (Solusi)",
+    "description": "Solusi referensi Pertemuan 8: Postman Collection lengkap dengan automated test script untuk API mahasiswa (Pertemuan 3-4/5/6-7).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET All Mahasiswa",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/mahasiswa",
+          "host": ["{{base_url}}"],
+          "path": ["mahasiswa"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code adalah 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response berupa array', function () {",
+              "  const jsonData = pm.response.json();",
+              "  pm.expect(jsonData).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST Tambah Mahasiswa",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nama\": \"Citra\",\n  \"jurusan\": \"Sistem Informasi\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/mahasiswa",
+          "host": ["{{base_url}}"],
+          "path": ["mahasiswa"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code adalah 201', function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "pm.environment.set('mahasiswaId', jsonData.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET Satu Mahasiswa",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/mahasiswa/{{mahasiswaId}}",
+          "host": ["{{base_url}}"],
+          "path": ["mahasiswa", "{{mahasiswaId}}"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code adalah 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Data memiliki properti nama', function () {",
+              "  const jsonData = pm.response.json();",
+              "  pm.expect(jsonData).to.have.property('nama');",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

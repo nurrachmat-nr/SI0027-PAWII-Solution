@@ -1,0 +1,12 @@
+{
+  "name": "solution-monolitik",
+  "version": "1.0.0",
+  "description": "Solusi referensi aplikasi monolitik - Pertemuan 1 PAW II",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

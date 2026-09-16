@@ -1,0 +1,11 @@
+{
+  "name": "solution-postman-automation",
+  "version": "1.0.0",
+  "description": "Solusi referensi pengujian API dengan Postman/Newman - Pertemuan 8 PAW II",
+  "scripts": {
+    "test": "newman run PAWII-Mahasiswa-API.postman_collection.json -e development.postman_environment.json"
+  },
+  "devDependencies": {
+    "newman": "^6.2.1"
+  }
+}

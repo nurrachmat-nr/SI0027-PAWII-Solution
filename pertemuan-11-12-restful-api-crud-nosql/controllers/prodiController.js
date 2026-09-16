@@ -1,0 +1,13 @@
+// Solusi Referensi - Pertemuan 11-12: Controller Prodi
+
+const Prodi = require("../models/prodiModel");
+
+exports.getAll = async (req, res) => {
+  const data = await Prodi.find();
+  res.json(data);
+};
+
+exports.create = async (req, res) => {
+  const prodi = await Prodi.create(req.body);
+  res.status(201).json(prodi);
+};

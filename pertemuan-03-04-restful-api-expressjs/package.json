@@ -1,0 +1,12 @@
+{
+  "name": "solution-restful-api-expressjs",
+  "version": "1.0.0",
+  "description": "Solusi referensi RESTful API CRUD dengan Express.js - Pertemuan 3-4 PAW II",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
