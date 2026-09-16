@@ -14,17 +14,22 @@ pertemuan-17-18-arsitektur-komponen-spa/
 └── angular/   # Angular Standalone - solusi referensi lengkap
 ```
 
-## Component Tree (Identik pada Kedua Stack)
+## Component Tree & Routing (Identik pada Kedua Stack)
 
 ```
-App / AppComponent (menyimpan state "keyword")
-├── PageHeader           - menampilkan judul halaman (props: judul)
-├── SearchBar            - input pencarian (props: keyword, onSearch/kotakPencarianBerubah)
-└── MahasiswaList        - merender daftar (props: mahasiswa)
-    └── MahasiswaCard    - menampilkan satu data (props: nama, nim)
+App / AppComponent (shell - menampilkan PageHeader & <router-outlet>)
+├── PageHeader                 - judul halaman + navigasi ("/" dan "/tentang")
+└── <Routes>/<router-outlet>
+    ├── "/"        -> DaftarMahasiswaPage (menyimpan state "keyword")
+    │                 ├── SearchBar        - input pencarian (props: keyword, onSearch/kotakPencarianBerubah)
+    │                 └── MahasiswaList    - merender daftar (props: mahasiswa)
+    │                     └── MahasiswaCard - menampilkan satu data (props: nama, nim)
+    └── "/tentang" -> Tentang / TentangComponent (halaman statis)
 ```
 
-Data mengalir satu arah (unidirectional): `App` menyimpan data & kata kunci pencarian, meneruskannya lewat props/`@Input()` ke komponen anak. `SearchBar` melaporkan balik perubahan lewat callback prop (React) / `@Output()` event (Angular) - tidak pernah mengubah data induk secara langsung.
+Data mengalir satu arah (unidirectional): `DaftarMahasiswaPage` menyimpan data & kata kunci pencarian, meneruskannya lewat props/`@Input()` ke komponen anak. `SearchBar` melaporkan balik perubahan lewat callback prop (React) / `@Output()` event (Angular) - tidak pernah mengubah data induk secara langsung.
+
+Routing memakai **react-router-dom** (React) dan **@angular/router**, bawaan Angular CLI (Angular) - lihat `src/main.jsx`/`src/App.jsx` (React) atau `src/app/app.routes.ts`/`src/app/app.config.ts` (Angular).
 
 ## Menjalankan
 
@@ -44,7 +49,7 @@ npm install
 npm start
 ```
 
-Kedua project menampilkan halaman "Daftar Mahasiswa" dengan data statis (3 mahasiswa) dan kotak pencarian yang menyaring daftar secara langsung (belum terhubung ke API - konsumsi API dibahas pada Pertemuan 23-25).
+Kedua project menampilkan halaman "Daftar Mahasiswa" (data statis, 3 mahasiswa, kotak pencarian menyaring daftar secara langsung - belum terhubung ke API, konsumsi API dibahas pada Pertemuan 23-25) dan halaman kedua "Tentang" yang dapat diakses lewat tautan navigasi pada `PageHeader`, mendemonstrasikan routing dasar.
 
 Starter kit latihan (berisi `// TODO`) tersedia di repositori terpisah [SI0027-PAWII-Project](https://github.com/nurrachmat-nr/SI0027-PAWII-Project).
 
