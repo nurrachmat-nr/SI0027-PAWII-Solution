@@ -1,7 +1,9 @@
 // Solusi Referensi - Pertemuan 23-24-25: Konsumsi API sungguhan (Axios) & Autentikasi JWT
 // Component tree: App (state) -> PageHeader, LoginForm|MahasiswaForm, SearchBar, MahasiswaList -> MahasiswaCard
+// Routing: "/" menampilkan daftar mahasiswa, "/tentang" menampilkan halaman Tentang
 
 import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import api from "./api/axiosInstance";
 import PageHeader from "./components/PageHeader";
@@ -9,10 +11,11 @@ import SearchBar from "./components/SearchBar";
 import MahasiswaForm from "./components/MahasiswaForm";
 import MahasiswaList from "./components/MahasiswaList";
 import LoginForm from "./components/LoginForm";
+import Tentang from "./components/Tentang";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-function App() {
+function DaftarMahasiswaPage() {
   const [mahasiswa, setMahasiswa] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -46,9 +49,7 @@ function App() {
   );
 
   return (
-    <div className="app">
-      <PageHeader judul="Daftar Mahasiswa" />
-
+    <>
       {isLoggedIn ? (
         <>
           <MahasiswaForm onTambah={handleTambah} />
@@ -67,6 +68,18 @@ function App() {
       {!loading && !error && <MahasiswaList mahasiswa={mahasiswaTersaring} />}
 
       <footer className="env-footer">Terhubung ke: {API_BASE_URL}</footer>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <div className="app">
+      <PageHeader judul="Daftar Mahasiswa" />
+      <Routes>
+        <Route path="/" element={<DaftarMahasiswaPage />} />
+        <Route path="/tentang" element={<Tentang />} />
+      </Routes>
     </div>
   );
 }

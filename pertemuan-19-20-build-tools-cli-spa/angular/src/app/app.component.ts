@@ -1,37 +1,15 @@
 // Solusi Referensi - Pertemuan 19-20: menambahkan environment variable (apiBaseUrl) dari Pertemuan 17-18.
-// Component tree: AppComponent (state) -> PageHeader, SearchBar, MahasiswaList -> MahasiswaCard
+// Component tree: AppComponent (shell) -> PageHeader, <router-outlet>
 
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
-import { MahasiswaListComponent } from './components/mahasiswa-list/mahasiswa-list.component';
-import { Mahasiswa } from './mahasiswa.model';
-import { environment } from '../environments/environment';
-
-const DATA_MAHASISWA: Mahasiswa[] = [
-  { id: 1, nama: 'Andi', nim: '2024001' },
-  { id: 2, nama: 'Budi', nim: '2024002' },
-  { id: 3, nama: 'Citra', nim: '2024003' },
-];
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [PageHeaderComponent, SearchBarComponent, MahasiswaListComponent],
+  imports: [PageHeaderComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-  keyword = '';
-  apiBaseUrl = environment.apiBaseUrl;
-
-  get mahasiswaTersaring(): Mahasiswa[] {
-    return DATA_MAHASISWA.filter((m) =>
-      m.nama.toLowerCase().includes(this.keyword.toLowerCase())
-    );
-  }
-
-  onSearch(keyword: string) {
-    this.keyword = keyword;
-  }
-}
+export class AppComponent {}
