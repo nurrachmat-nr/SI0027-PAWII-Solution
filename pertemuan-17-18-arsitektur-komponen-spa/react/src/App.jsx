@@ -18,9 +18,10 @@ const DATA_MAHASISWA = [
 
 function DaftarMahasiswaPage() {
   const [keyword, setKeyword] = useState("");
+  const kataKunciTersaring = keyword.trim().toLowerCase();
 
   const mahasiswaTersaring = DATA_MAHASISWA.filter((m) =>
-    m.nama.toLowerCase().includes(keyword.toLowerCase())
+    m.nama.toLowerCase().includes(kataKunciTersaring)
   );
 
   return (
